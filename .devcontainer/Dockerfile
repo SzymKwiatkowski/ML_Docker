@@ -1,4 +1,6 @@
-FROM ubuntu:22.04
+# FROM tensorflow/tensorflow
+FROM tensorflow/tensorflow:latest-gpu
+#nvidia/cuda:12.1.1-runtime-ubuntu22.04
 RUN echo "Europe/Utc" > /etc/timezone
 # RUN ln -fs /usr/share/zoneinfo/Europe/Rome /etc/localtime
 
@@ -9,14 +11,13 @@ ARG USER_GID=$USER_UID
 # Create the user
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    #
     # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
     && apt-get update \
     && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y python3-pip
+# RUN apt-get update && apt-get upgrade -y
+# RUN apt-get install -y python3-pip
 ENV SHELL /bin/bash
 
 RUN apt-get update -q && \
@@ -46,12 +47,23 @@ RUN apt-get update -q && \
     rm -rf /var/lib/apt/lists/*
 RUN sed -i 's/--no-generate//g' /usr/share/bash-completion/completions/apt-get && \
     sed -i 's/--no-generate//g' /usr/share/bash-completion/completions/apt-cache
-WORKDIR /root/
+WORKDIR /home/workspace
 
 RUN sed -i "s/#force_color_prompt=yes/force_color_prompt=yes/g" /root/.bashrc
 
 RUN touch /root/.Xauthority
 
+# RUN sudo apt update && sudo apt upgrade -y && sudo apt install python3-venv -y
+
+# RUN sudo apt update && sudo apt upgrade -y  && \
+#     sudo add-apt-repository -y ppa:deadsnakes/ppa && \
+#     sudo apt update && \
+#     sudo apt install python3.9 -y  && \
+#     sudo apt install python3.9-venv -y && \ 
+#     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py  && \
+#     python3.9 get-pip.py && \
+#     rm get-pip.py
+    
 # ********************************************************
 # * Anything else you want to do like clean up goes here *
 # ********************************************************

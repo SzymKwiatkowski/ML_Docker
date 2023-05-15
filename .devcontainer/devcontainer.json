@@ -1,11 +1,11 @@
 {
     "name": "ROS 2 Development Container",
     "privileged": true,
-    "remoteUser": "USERNAME",
+    "remoteUser": "user",
     "build": {
         "dockerfile": "Dockerfile",
         "args": {
-            "USERNAME": "USERNAME"
+            "USERNAME": "user"
         }
     },
     "workspaceFolder": "/home/workspace",
@@ -13,12 +13,7 @@
     "customizations": {
         "vscode": {
             "extensions":[
-                "ms-vscode.cpptools",
-                "ms-vscode.cpptools-themes",
-                "twxs.cmake",
-                "donjayamanne.python-extension-pack",
-                "eamodio.gitlens",
-                "ms-iot.vscode-ros"
+                "donjayamanne.python-extension-pack"
             ]
         }
     },
@@ -36,5 +31,5 @@
        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
         "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
     ],
-    "postCreateCommand": "sudo chown -R USERNAME /home/workspace"
+    "postCreateCommand": "sudo chown -R user /home/workspace"
 }

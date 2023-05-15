@@ -12,3 +12,14 @@
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+venv/
+notebook/build/
+notebook/models/
+notebook/training/
+notebook/object_detection.egg-info/
+notebook/setup.py
+dataset/
+train/
+notebook/
+install/
